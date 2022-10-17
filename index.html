@@ -7,17 +7,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+   <link rel="stylesheet" href="./css/main.css">
 </head>
 
 <body>
-  
+    <div class="container bg-white p-3 rounded-3 shadow mt-2">
+        <div class="text-center">
+            <h1>Todays Horoscope</h1>
+            <img class="w-25 rounded-circle shadow mb-4" src="https://assets-global.website-files.com/60222e72b5a2043efe117253/62e387413421ab85a584fb4d_hero%20v2.webp" alt="Horo Scope Image">
+            <div id="app">
+                <div class="row">
+                    <div class="col-md-4" v-for="(horoscope, index) in horoscopes" :key="index">
+                        <div class="card mb-2 shadow border-0">
+                            <div class="d-flex justify-content-center">
+                                <img class="card-img-top w-50" :src="`https://i0.wp.com/www.astrosage.com/images/sign/${horoscope.sign}.png`" alt="Title">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{horoscope.sign}}</h4>
+                                <p class="card-text">
+                                    <ul class="list-unstyled">
+                                        <li>Current Date: {{horoscope.current_date}}</li>
+                                        <li>Compatibility: {{horoscope.compatibility}}</li>
+                                        <li>Lucky Number: {{horoscope.lucky_number}}</li>
+                                        <li>Lucky Time: {{horoscope.lucky_time}}</li>
+                                        <li>Color: {{horoscope.color}}</li>
+                                        <li>Date Range: {{horoscope.date_range}}</li>
+                                        <li>Mood: {{horoscope.mood}}</li>
+                                        <li>Description: {{horoscope.description}}</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="./js/main.js"></script>
 </body>
-
 </html>
