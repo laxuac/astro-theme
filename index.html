@@ -14,7 +14,7 @@
     <div class="container bg-white p-0 rounded-3 shadow mt-2 min-vh-80" id="app">
         <nav class="navbar navbar-expand-lg navbar-dark bg-orange rounded-3">
               <div class="container">
-                <a class="navbar-brand" href="#">Astro App</a>
+                <a class="navbar-brand" @click.prevent="link('home')" >Astro App</a>
                 <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,16 +22,16 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0 d-flex justify-content-end w-100 ">
                         <li class="nav-item">
-                            <a class="nav-link active" @click.prevent="link('home')" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                            <a :class="active_class('home')" @click.prevent="link('home')" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" @click.prevent="link('horoscope')">Horoscope</a>
+                            <a :class="active_class('horoscope')" @click.prevent="link('horoscope')">Horoscope</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" @click.prevent="link('kundali')">Kundali</a>
+                            <a :class="active_class('kundali')" @click.prevent="link('kundali')">Kundali</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" @click.prevent="link('panchang')">Daily Panchang</a>
+                            <a :class="active_class('panchang')" @click.prevent="link('panchang')">Daily Panchang</a>
                         </li>
                     </ul>
                     

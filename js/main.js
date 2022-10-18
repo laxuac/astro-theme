@@ -69,6 +69,9 @@ const vueApp=createApp({
             this.panchang = panchang;
           }
           this.loading=false;
+        },
+        active_class(page){
+          return this.page === page ? 'nav-link active' : 'nav-link';
         }
     },
   }).mount('#app')
