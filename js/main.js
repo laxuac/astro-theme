@@ -10,8 +10,21 @@ const vueApp=createApp({
         currentSign: 'aries',
         currentHoroscope: {},
         horoscopes: [],
+        // panchang
+        panchang: [],
+        // birth info
+        birth_infos:{}
       }
-    },     
+    }, 
+    watch: {
+      // page
+      page: function (newPage, oldPage) {
+        if (newPage === 'panchang') {
+          console.log('panchang');
+          this.getTodaysPanchang();
+        }
+      }
+    },    
     mounted() {
         // this.signs.forEach(async (sign) => {
         //     const response = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=today`,{method: 'POST'});
@@ -44,7 +57,18 @@ const vueApp=createApp({
         },
         link(page){
             this.page = page;
+        },
+        async getTodaysPanchang() {
+          this.loading=true;
+          if (this.panchang.length === 0) {
+            // todays date
+            const date = new Date();
+            const date_str=date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+            const ne_date=ad2bs(date_str).en;
+            const panchang = await getPanchag(ne_date.year,ne_date.month,ne_date.day);
+            this.panchang = panchang;
+          }
+          this.loading=false;
         }
-        
     },
   }).mount('#app')
