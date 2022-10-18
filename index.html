@@ -11,38 +11,140 @@
 </head>
 
 <body>
-    <div class="container bg-white p-3 rounded-3 shadow mt-2">
-        <div class="text-center">
-            <h1>Todays Horoscope</h1>
-            <img class="w-25 rounded-circle shadow mb-4" src="https://assets-global.website-files.com/60222e72b5a2043efe117253/62e387413421ab85a584fb4d_hero%20v2.webp" alt="Horo Scope Image">
-            <div id="app">
-                <div class="row">
-                    <div class="col-md-4" v-for="(horoscope, index) in horoscopes" :key="index">
-                        <div class="card mb-2 shadow border-0">
+    <div class="container bg-white p-0 rounded-3 shadow mt-2 min-vh-80" id="app">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-orange rounded-3">
+              <div class="container">
+                <a class="navbar-brand" href="#">Astro App</a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0 d-flex justify-content-end w-100 ">
+                        <li class="nav-item">
+                            <a class="nav-link active" @click.prevent="link('home')" aria-current="page">Home <span class="visually-hidden">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" @click.prevent="link('horoscope')">Horoscope</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" @click.prevent="link('kundali')">Kundali</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" @click.prevent="link('panchang')">Daily Panchang</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+          </div>
+        </nav>
+        <div class="p-3 min-vh-70">
+            <div v-if="page=='home'">
+                <div class="row justify-content-center">
+                    <div class="col-md-3  d-flex align-items-stretch">
+                        <div class="card border-0 shadow p-2 m-2">
                             <div class="d-flex justify-content-center">
-                                <img class="card-img-top w-50" :src="`https://i0.wp.com/www.astrosage.com/images/sign/${horoscope.sign}.png`" alt="Title">
+                                <img src="./imgs/horoscope.webp" alt="" class="w-75 card-img-to home-card-img">
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title">{{horoscope.sign}}</h4>
-                                <p class="card-text">
-                                    <ul class="list-unstyled">
-                                        <li>Current Date: {{horoscope.current_date}}</li>
-                                        <li>Compatibility: {{horoscope.compatibility}}</li>
-                                        <li>Lucky Number: {{horoscope.lucky_number}}</li>
-                                        <li>Lucky Time: {{horoscope.lucky_time}}</li>
-                                        <li>Color: {{horoscope.color}}</li>
-                                        <li>Date Range: {{horoscope.date_range}}</li>
-                                        <li>Mood: {{horoscope.mood}}</li>
-                                        <li>Description: {{horoscope.description}}</li>
-                                    </ul>
-                                </p>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Horoscope</h4>
+                                <p class="card-text">Get your daily horoscope</p>
+                                <a href="#" class="btn btn-success" @click.prevent="link('horoscope')">Get Horoscope</a>
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="col-md-3  d-flex align-items-stretch">
+                        <div class="card border-0 shadow p-2 m-2">
+                            <div class="d-flex justify-content-center">
+                                <img src="./imgs/kundali.jpg" alt="" class="w-100 card-img-top home-card-img">
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Kundlai</h4>
+                                <p class="card-text">Get your birth chart.</p>
+                                <a href="#" class="btn btn-success" @click.prevent="link('kundali')">Get Kundali</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- panchanga -->
+                    <div class="col-md-3  d-flex align-items-stretch">
+                        <div class="card border-0 shadow p-2 m-2">
+                            <div class="d-flex justify-content-center">
+                                <img src="./imgs/drikpanchang.png" alt="" class="w-100 card-img-top home-card-img">
+                            </div>
+                            <div class="card-body text-center">
+                                <h4 class="card-title">Panchanga</h4>
+                                <p class="card-text">Get your daily panchang</p>
+                                <a href="#" class="btn btn-success" @click.prevent="link('panchang')">Get Panchang</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+            <!-- horoscope -->
+            <div v-else-if="page=='horoscope'">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 d-flex align-items-stretch" v-for="(sign,index) in signs" :key="index">
+                        <div class="card border-0 shadow p-2 m-2">
+                            <div class="d-flex justify-content-center">
+                                <img :src="`./imgs/signs/${sign}.png`" alt="" class="w-50 card-img-top">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{sign}}</h4>
+                                <p class="card-text">Get your daily horoscope</p>
+                                <a href="#" class="btn btn-success" @click="getHoroscope(sign)">Get Horoscope</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- view-horoscope -->
+            <div v-else-if="page=='view-horoscope'">
+                <div class="d-flex w-100 min-vh-70 justify-content-center align-items-center"  v-if="loading">
+                     <img src="./imgs/loader.gif" style="width:100px;" >
+                </div>
+                <div class="row justify-content-center" v-else>
+                    <div class="col-md-6">
+                        <div class="card mb-2 shadow border-0">
+                            <div class="d-flex justify-content-center">
+                                <img class="card-img-top w-50" :src="`./imgs/signs/${currentHoroscope.sign}.png`" :alt="currentHoroscope.sign">
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{currentHoroscope.sign}}</h4>
+                                <p class="card-text">
+                                    <ul class="list-unstyled">
+                                        <li>Current Date: {{currentHoroscope.current_date}}</li>
+                                        <li>Compatibility: {{currentHoroscope.compatibility}}</li>
+                                        <li>Lucky Number: {{currentHoroscope.lucky_number}}</li>
+                                        <li>Lucky Time: {{currentHoroscope.lucky_time}}</li>
+                                        <li>Color: {{currentHoroscope.color}}</li>
+                                        <li>Date Range: {{currentHoroscope.date_range}}</li>
+                                        <li>Mood: {{currentHoroscope.mood}}</li>
+                                        <li>Description: {{currentHoroscope.description}}</li>
+                                    </ul>
+                                </p>
+                                <div class="d-flex justify-content-end">
+                                    <a href="#" class="btn btn-success" @click.prevent="link('horoscope')">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- kundali -->
+            <div v-else-if="page=='kundali'">        
+                <div class="d-flex w-100 min-vh-70 flex-column justify-content-center align-items-center">
+                    <h4>Kundali | Under Construction</h4>
+                    <button class="btn btn-primary"  @click.prevent="link('home')">Home</button>
+                </div>
+            </div>
+            <!-- panchang -->
+            <div v-else-if="page=='panchang'">        
+                <div class="d-flex w-100 min-vh-70 flex-column justify-content-center align-items-center">
+                    <h4> Panchang | Under Construction</h4>
+                    <button class="btn btn-primary"  @click.prevent="link('home')">Home</button>
+                </div>
+            </div>
+
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
