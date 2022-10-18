@@ -139,11 +139,10 @@
             </div>
             <!-- panchang -->
             <div v-else-if="page=='panchang'">        
-                <!-- <div class="d-flex w-100 min-vh-70 flex-column justify-content-center align-items-center">
-                    <h4> Panchang | Under Construction</h4>
-                    <button class="btn btn-primary"  @click.prevent="link('home')">Home</button>
-                </div> -->
-                <div>
+                <div class="d-flex w-100 min-vh-70 justify-content-center align-items-center"  v-if="loading">
+                    <img src="./imgs/loader.gif" style="width:100px;" >
+               </div>
+                <div v-else>
                     <div class="text-center">
                         <h4>Daily Panchange</h4>
                         <p class="text-muted">Only supports Nepali for now.</p>
